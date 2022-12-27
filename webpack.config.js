@@ -1,11 +1,14 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const DotenvWebpackPlugin = require("dotenv-webpack");
 
 module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    publicPath:'/',
   },
   resolve: {
     extensions: [".js", ".jsx"],
@@ -27,6 +30,25 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          "css-loader",
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          "css-loader",
+          "sass-loader",
+        ],
+      },
     ],
   },
   plugins: [
@@ -34,10 +56,17 @@ module.exports = {
       template: "./public/index.html",
       filename: "./index.html",
     }),
+
+    new MiniCssExtractPlugin({
+      filename: "assests/[name].css",
+    }),
+    new DotenvWebpackPlugin()
   ],
   devServer: {
-    contentBase: path.join(__dirname, "dist"),
+    static: path.join(__dirname, "dist"),
     compress: true,
     port: 3000,
+    historyApiFallback: true,
+    open: true,
   },
 };
