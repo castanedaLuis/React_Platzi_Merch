@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 // import { PayPalButtons } from '@paypal/react-paypal-js';
 import { PayPalButton } from "react-paypal-button-v2";
 import appContet from '../context/appContext'
+import MetaHelmet from '../components/MetaHelmet';
 import '../styles/components/Payment.css';
 
 function Payment() {
@@ -57,33 +58,41 @@ function Payment() {
   };
 
   return (
-    <div className="Payment">
-      <div className="Payment-content">
-        <h3>Resumen del Pedido:</h3>
-        {cart.map((item) => (
-          <div className="Payment-item" key="item.title">
-            <div className="Payment-element">
-              <h4>{item.title}</h4>
-              <span>$ {item.price}</span>
+    <>
+      <MetaHelmet
+        title="Pago"
+        description="Elije la forma de pago de tu preferencia"
+        image="https://davecast.s3.amazonaws.com/avatarnegativo.jpg"
+        url="https://mocafood.xyz/"
+      />
+      <div className="Payment">
+        <div className="Payment-content">
+          <h3>Resumen del Pedido:</h3>
+          {cart.map((item) => (
+            <div className="Payment-item" key="item.title">
+              <div className="Payment-element">
+                <h4>{item.title}</h4>
+                <span>$ {item.price}</span>
+              </div>
             </div>
+          ))
+          }
+          <div className="Payment-item">
+            <h3>Total:</h3>
+            <span><strong>$ {handleSumTotal()}</strong></span>
           </div>
-        ))
-        }
-        <div className="Payment-item">
-          <h3>Total:</h3>
-          <span><strong>$ {handleSumTotal()}</strong></span>
-        </div>
-        <div className="Payment-button">
-          <PayPalButton
-            paypalOptions={paypalOptions}
-            buttonStyles={buttonStyles}
-            createOrder={(data, actions) => createOrder(data, actions)}
-            onApprove={(data, actions) => onApprove(data, actions)}
-            onError={(error) => console.log(error)}
-            onCancel={data => console.log(data)} />
+          <div className="Payment-button">
+            <PayPalButton
+              paypalOptions={paypalOptions}
+              buttonStyles={buttonStyles}
+              createOrder={(data, actions) => createOrder(data, actions)}
+              onApprove={(data, actions) => onApprove(data, actions)}
+              onError={(error) => console.log(error)}
+              onCancel={data => console.log(data)} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 
 }

@@ -2,6 +2,7 @@ import React, { useRef, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import appContext from '../context/appContext';
+import MetaHelmet from '../components/MetaHelmet';
 import '../styles/components/Information.css';
 
 function Information() {
@@ -41,52 +42,60 @@ function Information() {
   }
 
   return (
-    <div className="Information">
-      <div className="Information-content">
-        <div className="Information-head">
-          <h2>Informacion de contacto:</h2>
-        </div>
-        <div className="Information-form">
-          <form ref={form}>
-            <input type="text" placeholder="Nombre completo" name="name" />
-            <input type="text" placeholder="Correo Electronico" name="email" />
-            <input type="text" placeholder="Direccion" name="address" />
-            <input type="text" placeholder="Dpto" name="apto" />
-            <input type="text" placeholder="Ciudad" name="city" />
-            <input type="text" placeholder="Pais" name="country" />
-            <input type="text" placeholder="Estado" name="state" />
-            <input type="number" placeholder="Codigo postal" name="cp" />
-            <input type="number" placeholder="Telefono" name="phone" max={10} />
-          </form>
-        </div>
-        <div className="Information-buttons">
-          <div className="Information-back" >
-            <Link to='/checkout/payment'>
-              Regresar
-            </Link>
+    <>
+      <MetaHelmet
+        title="Carrito"
+        description="Información de tu carrito"
+        image="https://davecast.s3.amazonaws.com/avatarnegativo.jpg"
+        url="https://mocafood.xyz/"
+      />
+      <div className="Information">
+        <div className="Information-content">
+          <div className="Information-head">
+            <h2>Informacion de contacto:</h2>
+          </div>
+          <div className="Information-form">
+            <form ref={form}>
+              <input type="text" placeholder="Nombre completo" name="name" />
+              <input type="text" placeholder="Correo Electronico" name="email" />
+              <input type="text" placeholder="Direccion" name="address" />
+              <input type="text" placeholder="Dpto" name="apto" />
+              <input type="text" placeholder="Ciudad" name="city" />
+              <input type="text" placeholder="Pais" name="country" />
+              <input type="text" placeholder="Estado" name="state" />
+              <input type="number" placeholder="Codigo postal" name="cp" />
+              <input type="number" placeholder="Telefono" name="phone" max={10} />
+            </form>
+          </div>
+          <div className="Information-buttons">
+            <div className="Information-back" >
+              <Link to='/checkout/payment'>
+                Regresar
+              </Link>
 
-          </div>
-          <div className="Information-next">
-            <Link to='/checkout/payment'>
-              <button type="button" onClick={handleSubmit}>Pagar</button>
-            </Link>
+            </div>
+            <div className="Information-next">
+              <Link to='/checkout/payment'>
+                <button type="button" onClick={handleSubmit}>Pagar</button>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="Information-sidebar">
-        <h3>Pedido:</h3>
-        {
-          cart.map((item) => (
-            <div className="Information-item" key={item.title}>
-              <div className="Information-element">
-                <h4>{item.title}</h4>
-                <span>${item.price}</span>
+        <div className="Information-sidebar">
+          <h3>Pedido:</h3>
+          {
+            cart.map((item) => (
+              <div className="Information-item" key={item.title}>
+                <div className="Information-element">
+                  <h4>{item.title}</h4>
+                  <span>${item.price}</span>
+                </div>
               </div>
-            </div>
-          ))
-        }
+            ))
+          }
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
