@@ -5,45 +5,42 @@ import appContext from '../context/appContext';
 import useInitialState from '../hooks/useInitialState';
 import { Home, Checkout, Information, Payment, Success, NotFound } from "../containers"
 import Layout from '../components/Layout';
+import Spinner from '../components/Spinner';
 
 function app() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: <Layout><Home /></Layout>,
     },
     {
       path: "checkout",
-      element: <Checkout />,
+      element: <Layout><Checkout /></Layout>,
     },
     {
       path: "checkout/information",
-      element: <Information />,
+      element: <Layout><Information /></Layout>,
     },
     {
       path: "checkout/payment",
-      element: <Payment />,
+      element: <Layout><Payment /></Layout>,
     },
     {
       path: "checkout/success",
-      element: <Success />,
+      element: <Layout><Success /></Layout>,
     },
     {
       path: "",
-      element: <NotFound />,
+      element: <Layout><NotFound /></Layout>,
     }
   ]);
 
   const initialState = useInitialState();
   
   return (
-      <appContext.Provider value={initialState}>
-        <Layout>
-          <React.StrictMode>
-            <RouterProvider router={router} />
-          </React.StrictMode>
-        </Layout>
-      </appContext.Provider>
+    <appContext.Provider value={initialState}>
+        <RouterProvider router={router} fallbackElement={<Spinner />}/>
+    </appContext.Provider>
   )
 }
 

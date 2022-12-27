@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import appContext from '../context/appContext'
-// import { Link } from 'react-router-dom'
 import '../styles/components/Checkout.css';
 
 function Checkout() {
@@ -38,11 +38,10 @@ function Checkout() {
         cart.length > 0 &&
         <div className="Checkout-sidebar">
           <h3>{`Precio Total:$ ${handleSumTotal()}`}</h3>
-          {/* <Link href='/checkout/information'>
-        </Link> */}
-          <a href='/checkout/information'>
+          <Link to='/checkout/information'>
             <button type="button">Continuar pedido</button>
-          </a>
+          </Link>
+
         </div>
       }
     </div>

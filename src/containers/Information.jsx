@@ -1,13 +1,13 @@
-import React,{useRef, useContext} from 'react'
-import {useNavigate} from 'react-router-dom';
-// import { Link } from 'react-router-dom'
+import React, { useRef, useContext } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import appContext from '../context/appContext';
 import '../styles/components/Information.css';
 
 function Information() {
   const navigate = useNavigate();
 
-  const {state, addToBuyer} = useContext(appContext)
+  const { state, addToBuyer } = useContext(appContext)
   const form = useRef(null);
 
   const { cart } = state;
@@ -31,9 +31,9 @@ function Information() {
     }
 
     // OTRA FORMA DE FORMAR EL FROM DATA
-      // const formData = new FormData(form.current);
-      // const buyer = Object.fromEntries(formData);
-      // console.log(buyer);
+    // const formData = new FormData(form.current);
+    // const buyer = Object.fromEntries(formData);
+    // console.log(buyer);
 
 
     addToBuyer(buyer);
@@ -56,31 +56,33 @@ function Information() {
             <input type="text" placeholder="Pais" name="country" />
             <input type="text" placeholder="Estado" name="state" />
             <input type="number" placeholder="Codigo postal" name="cp" />
-            <input type="number" placeholder="Telefono" name="phone" max={10}/>
+            <input type="number" placeholder="Telefono" name="phone" max={10} />
           </form>
         </div>
         <div className="Information-buttons">
-          <div className="Information-back"   onClick={handleClick}>
-            Regresar
+          <div className="Information-back" >
+            <Link to='/checkout/payment'>
+              Regresar
+            </Link>
+
           </div>
           <div className="Information-next">
-              {/* <Link href='/checkout/payment'>
-              </Link> */}
-                {/* <a href='/checkout/payment'>pagar</a> */}
-                <button type="button" onClick={handleSubmit}>Pagar</button>
+            <Link to='/checkout/payment'>
+              <button type="button" onClick={handleSubmit}>Pagar</button>
+            </Link>
           </div>
         </div>
       </div>
       <div className="Information-sidebar">
         <h3>Pedido:</h3>
         {
-          cart.map((item) =>(
-          <div className="Information-item" key={item.title}>
-            <div className="Information-element">
-              <h4>{item.title}</h4>
-              <span>${item.price}</span>
+          cart.map((item) => (
+            <div className="Information-item" key={item.title}>
+              <div className="Information-element">
+                <h4>{item.title}</h4>
+                <span>${item.price}</span>
+              </div>
             </div>
-          </div>
           ))
         }
       </div>
